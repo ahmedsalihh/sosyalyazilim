@@ -1,8 +1,6 @@
 package com.ahmedsalihh.sosyalyazilim.controller;
 
-import com.ahmedsalihh.sosyalyazilim.models.Player;
 import com.ahmedsalihh.sosyalyazilim.models.Team;
-import com.ahmedsalihh.sosyalyazilim.services.PlayerService;
 import com.ahmedsalihh.sosyalyazilim.services.TeamService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

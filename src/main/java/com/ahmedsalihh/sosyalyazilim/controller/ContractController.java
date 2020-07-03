@@ -1,16 +1,13 @@
 package com.ahmedsalihh.sosyalyazilim.controller;
 
 import com.ahmedsalihh.sosyalyazilim.models.Contract;
-import com.ahmedsalihh.sosyalyazilim.models.Player;
 import com.ahmedsalihh.sosyalyazilim.services.ContractService;
-import com.ahmedsalihh.sosyalyazilim.services.PlayerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/contract")

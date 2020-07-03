@@ -1,16 +1,17 @@
 package com.ahmedsalihh.sosyalyazilim.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Data
-public class Player {
+public class Player implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,14 +21,4 @@ public class Player {
 
     @JsonFormat(pattern="dd-MM-yyyy")
     private Date dateOfBirth;
-
-//    @ManyToMany(fetch = FetchType.LAZY,
-//            cascade = {
-//                    CascadeType.PERSIST,
-//                    CascadeType.MERGE
-//            })
-//    @JoinTable(name = "player_team",
-//            joinColumns = {@JoinColumn(name = "player_id", referencedColumnName = "id")},
-//            inverseJoinColumns = {@JoinColumn(name = "team_id", referencedColumnName = "id")})
-//    private Set<Team> teams = new HashSet<>();
 }
