@@ -19,27 +19,28 @@ public class ContractController {
     private final ContractService contractService;
 
     @GetMapping
-    public ResponseEntity<List<Contract>> findAll(){
+    public ResponseEntity<List<Contract>> findAll() {
         return ResponseEntity.ok(contractService.findAll());
     }
 
     @PostMapping
-    public ResponseEntity create( @RequestBody Contract contract) {
-        return ResponseEntity.ok(contractService.save(contract));
+    public ResponseEntity create(@RequestBody Contract contract, @RequestParam("playerId") Long playerId,
+                                 @RequestParam("teamId") Long teamId) {
+        return ResponseEntity.ok(contractService.save(contract, playerId, teamId));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Contract> update(@PathVariable Long id, @RequestBody Contract contract) {
+    public ResponseEntity<Contract> update(@PathVariable Long id, @RequestBody Contract contract,
+                                           @RequestParam("playerId") Long playerId, @RequestParam("teamId") Long teamId) {
         if (!contractService.findById(id).isPresent()) {
             ResponseEntity.badRequest().build();
         }
-
-        return ResponseEntity.ok(contractService.save(contract));
+        return ResponseEntity.ok(contractService.save(contract, playerId, teamId));
     }
 
     @GetMapping("/getActiveTeamPlayers")
     public ResponseEntity getActiveTeamPlayers(@RequestParam("year") int year, @RequestParam("teamId") Long teamId) {
-        List<Player> players = contractService.getActiveTeamPlayers(year,teamId);
+        List<Player> players = contractService.getActiveTeamPlayers(year, teamId);
         return ResponseEntity.ok(players);
     }
 
