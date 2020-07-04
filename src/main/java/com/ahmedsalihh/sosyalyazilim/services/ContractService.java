@@ -2,13 +2,17 @@ package com.ahmedsalihh.sosyalyazilim.services;
 
 import com.ahmedsalihh.sosyalyazilim.models.Contract;
 import com.ahmedsalihh.sosyalyazilim.models.Player;
+import com.ahmedsalihh.sosyalyazilim.models.Team;
 import com.ahmedsalihh.sosyalyazilim.repositories.ContractRepository;
-import com.ahmedsalihh.sosyalyazilim.repositories.PlayerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 
@@ -20,15 +24,30 @@ public class ContractService {
         return contractRepository.findAll();
     }
 
-    public Optional<Contract> findById(Long id){
+    public Optional<Contract> findById(Long id) {
         return contractRepository.findById(id);
     }
 
-    public Contract save(Contract contract){
+    public Contract save(Contract contract) {
         return contractRepository.save(contract);
     }
 
-    public void deleteById(Long id){
-        contractRepository.deleteById(id);
+    public List<Player> getActiveTeamPlayers(int year, Long teamId) {
+        List<Contract> contracts = contractRepository.findByTeamId(teamId);
+        List<Player> players = contracts.stream()
+                .filter(f -> year <= f.getEndDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getYear()
+                        && year >= f.getStartDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getYear())
+                .map(item -> item.getPlayer())
+                .collect(Collectors.toList());
+        return players;
+    }
+
+    public List<Team> getPlayerTeams(Long playerId) {
+        List<Contract> contracts = contractRepository.findByPlayerId(playerId);
+        List<Team> teams = contracts.stream()
+                .filter(f -> f.getPlayer().getId() == playerId)
+                .map(item -> item.getTeam())
+                .collect(Collectors.toList());
+        return teams;
     }
 }
