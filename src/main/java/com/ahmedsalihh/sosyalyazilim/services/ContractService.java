@@ -35,6 +35,16 @@ public class ContractService {
     public Contract save(Contract contract, Long playerId, Long teamId) {
         Optional<Player> player = playerRepository.findById(playerId);
         Optional<Team> team = teamRepository.findById(teamId);
+
+        int experience = player.get().getExperienceAsMonth();
+        String currency = team.get().getCurrency();
+
+        int transferFee = experience * 100000;
+        int teamPercentage = transferFee * 10 / 100;
+        int contractFee = transferFee + teamPercentage;
+
+        contract.setContractFee(contractFee + " " + currency);
+
         contract.setPlayer(player.get());
         contract.setTeam(team.get());
         return contractRepository.save(contract);

@@ -22,6 +22,8 @@ public class Contract implements Serializable {
     @JsonFormat(pattern="dd-MM-yyyy")
     private Date endDate;
 
+    private String contractFee;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "player_id", referencedColumnName = "id")
     private Player player;

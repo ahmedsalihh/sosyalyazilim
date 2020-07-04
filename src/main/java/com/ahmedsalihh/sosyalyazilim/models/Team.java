@@ -20,4 +20,6 @@ public class Team implements Serializable {
 
     @JsonFormat(pattern="dd-MM-yyyy")
     private Date establishDate;
+
+    private String currency;
 }
