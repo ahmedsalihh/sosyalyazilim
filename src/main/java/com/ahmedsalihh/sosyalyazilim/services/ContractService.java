@@ -28,10 +28,6 @@ public class ContractService {
         return contractRepository.findAll();
     }
 
-    public Optional<Contract> findById(Long id) {
-        return contractRepository.findById(id);
-    }
-
     public Contract save(Contract contract, Long playerId, Long teamId) {
         Optional<Player> player = playerRepository.findById(playerId);
         Optional<Team> team = teamRepository.findById(teamId);
