@@ -24,7 +24,7 @@ public class ContractController {
     }
 
     @PostMapping
-    public ResponseEntity<Contract> create(@RequestBody Contract contract, @RequestParam("playerId") Long playerId,
+    public ResponseEntity create(@RequestBody Contract contract, @RequestParam("playerId") Long playerId,
                                  @RequestParam("teamId") Long teamId) {
         return ResponseEntity.ok(contractService.save(contract, playerId, teamId));
     }
